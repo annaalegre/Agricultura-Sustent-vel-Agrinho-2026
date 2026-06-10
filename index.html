@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-tema="claro">
+<!--
+  ╔══════════════════════════════════════════════════════════════
+  ║  AGRINHO 2026 — Agro forte, futuro sustentável              
+  ║  Subcategoria 3 — HTML, CSS e JavaScript                   
+  ║                                                              
+  ║  ESTRUTURA GERAL DO DOCUMENTO                               
+  ║  ─────────────────────────────                              
+  ║  1. <head>         — Meta, SEO, acessibilidade, fontes      
+  ║  2. <header>       — Barra de navegação e controles        
+  ║  3. <main>                                                  
+  ║     ├── #hero      — Tela de abertura                       
+  ║     ├── #sobre     — Contexto e estatísticas               
+  ║     ├── #palhada   — Técnica + benefícios + comparativo     
+  ║     ├── #residuos  — Descarte correto de resíduos           
+  ║     └── #jogo      — CTA + canvas do jogo                  
+  ║  4. <footer>       — Créditos                               
+  ║  5. <script>       — Interações da página (NÃO o jogo)     
+  ╚══════════════════════════════════════════════════════════════
+-->
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- SEO e descrição para leitores de tela -->
+  <meta name="description"
+    content="Site educativo sobre agricultura sustentável — palhada, descarte de resíduos e jogo interativo com o produtor Kadu." />
+  <meta name="author" content="Agrinho 2026" />
+
+  <title>Agrinho 2026 — Agro forte, futuro sustentável</title>
+
+  <!-- Fontes: DM Serif Display (títulos expressivos) + Crimson Pro (corpo legível) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Crimson+Pro:wght@400;600&display=swap"
+    rel="stylesheet" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <!-- ═══════════════════════════════════════════════════
+       CABEÇALHO — navegação e controles de acessibilidade
+  ═══════════════════════════════════════════════════ -->
+  <header class="cabecalho" role="banner">
+    <div class="container cabecalho__inner">
+
+      <!-- Logotipo / identidade -->
+      <a href="#hero" class="cabecalho__logo" aria-label="Agrinho 2026 — voltar ao topo">
+        <span aria-hidden="true">⬡</span> Agrinho 2026
+      </a>
+
+      <!-- Navegação principal -->
+      <nav aria-label="Navegação principal">
+        <ul class="cabecalho__nav" role="list">
+          <li><a href="#sobre" class="nav__link">Sobre</a></li>
+          <li><a href="#palhada" class="nav__link">Palhada</a></li>
+          <li><a href="#residuos" class="nav__link">Resíduos</a></li>
+          <li><a href="#jogo" class="nav__link nav__link--destaque">Jogar</a></li>
+        </ul>
+      </nav>
+
+      <!-- Controles de acessibilidade -->
+      <div class="cabecalho__controles" role="group" aria-label="Preferências de exibição">
+
+        <!-- Alternar modo escuro / claro -->
+        <button id="btnTema" class="btn-icone" aria-label="Alternar modo escuro" aria-pressed="false"
+          title="Modo escuro">
+          <!-- Ícone lua (modo escuro) e sol (modo claro) via CSS -->
+          <span class="icone-tema" aria-hidden="true"></span>
+        </button>
+
+        <!-- Leitura em voz alta (Web Speech API) -->
+        <button id="btnVoz" class="btn-icone" aria-label="Ativar leitura em voz alta do conteúdo" aria-pressed="false"
+          title="Leitura em voz alta">
+          <span aria-hidden="true">🔊</span>
+        </button>
+
+      </div><!-- /controles -->
+
+    </div><!-- /container -->
+  </header><!-- /cabecalho -->
+
+
+  <!-- ═══════════════════════════════════════════════════
+       CONTEÚDO PRINCIPAL
+  ═══════════════════════════════════════════════════ -->
+  <main id="conteudo-principal">
+
+    <!-- ─────────────────────────────────────────────
+         SEÇÃO 1 — HERO
+         Tela de abertura com chamada principal e link
+         de acesso rápido ao conteúdo (skip-link).
+    ───────────────────────────────────────────── -->
+    <section class="hero" id="hero" aria-labelledby="hero-titulo">
+
+      <!-- Skip-link: permite usuários de teclado pular direto ao conteúdo -->
+      <a href="#sobre" class="skip-link">Ir direto ao conteúdo</a>
+
+      <div class="hero__textura" aria-hidden="true"></div>
+      <div class="hero__linhas" aria-hidden="true"></div>
+
+      <div class="hero__content">
+        <p class="hero__selo" aria-label="Programa Agrinho 2026">AGRINHO · 2026</p>
+
+        <h1 class="hero__titulo" id="hero-titulo">
+          Agro forte,<br>
+          <em>futuro sustentável</em>
+        </h1>
+
+        <p class="hero__subtitulo">
+          Equilíbrio entre produção e meio ambiente
+        </p>
+
+        <a href="#sobre" class="hero__cta" aria-label="Conhecer mais sobre agricultura sustentável">
+          Conhecer mais <span aria-hidden="true">↓</span>
+        </a>
+      </div>
+
+      <!-- Decoração geométrica — puramente visual -->
+      <div class="hero__deco" aria-hidden="true">
+        <div class="deco__circulo deco__circulo--1"></div>
+        <div class="deco__circulo deco__circulo--2"></div>
+        <div class="deco__linha  deco__linha--1"></div>
+        <div class="deco__linha  deco__linha--2"></div>
+      </div>
+
+    </section><!-- /hero -->
+
+
+    <!-- ─────────────────────────────────────────────
+         SEÇÃO 2 — SOBRE
+         Contexto da agricultura sustentável e três
+         estatísticas em cards de impacto.
+    ───────────────────────────────────────────── -->
+    <section class="sobre" id="sobre" aria-labelledby="sobre-titulo">
+      <div class="container">
+
+        <p class="secao-rotulo">Por que importa</p>
+        <h2 class="secao-titulo" id="sobre-titulo">
+          Agricultura sustentável:<br>o campo que cuida do amanhã
+        </h2>
+
+        <div class="sobre__grade">
+
+          <!-- Texto explicativo -->
+          <div class="sobre__texto">
+            <p>
+              A agricultura sustentável é uma forma de produzir alimentos que
+              respeita os limites do planeta. Em vez de esgotar o solo, a água e
+              a biodiversidade, ela busca manter esses recursos vivos e produtivos
+              para as próximas gerações.
+            </p>
+            <p>
+              No Brasil, um dos maiores produtores agrícolas do mundo, adotar
+              práticas sustentáveis não é apenas uma escolha ambiental — é uma
+              necessidade econômica. Solos degradados produzem menos, custam mais
+              e dependem de mais agroquímicos.
+            </p>
+            <p>
+              O equilíbrio entre produtividade e preservação é o único caminho
+              para garantir que o campo continue forte nas próximas décadas.
+            </p>
+          </div><!-- /texto -->
+
+          <!-- Cards de estatísticas (role="list" melhora leitura em voz alta) -->
+          <ul class="sobre__cards" role="list" aria-label="Estatísticas sobre o solo e água">
+
+            <li class="stat-card js-revelar">
+              <span class="stat-card__numero" aria-label="33 por cento">33%</span>
+              <span class="stat-card__descricao">
+                dos solos agricultáveis do mundo estão degradados
+              </span>
+            </li>
+
+            <li class="stat-card stat-card--destaque js-revelar">
+              <span class="stat-card__numero" aria-label="mais 40 por cento">+40%</span>
+              <span class="stat-card__descricao">
+                de produtividade com manejo sustentável do solo
+              </span>
+            </li>
+
+            <li class="stat-card js-revelar">
+              <span class="stat-card__numero" aria-label="70 por cento">70%</span>
+              <span class="stat-card__descricao">
+                da água doce mundial é usada pela agricultura
+              </span>
+            </li>
+
+          </ul><!-- /cards -->
+
+        </div><!-- /grade -->
+
+      </div>
+    </section><!-- /sobre -->
+
+
+    <!-- ─────────────────────────────────────────────
+         SEÇÃO 3 — PALHADA
+         Explica o que é palhada, lista os seis
+         benefícios e exibe o comparativo sem/com.
+    ───────────────────────────────────────────── -->
+    <section class="palhada" id="palhada" aria-labelledby="palhada-titulo">
+      <div class="container">
+
+        <p class="secao-rotulo">Técnica essencial</p>
+        <h2 class="secao-titulo" id="palhada-titulo">O poder da palhada no solo</h2>
+
+        <p class="palhada__intro">
+          A palhada é a cobertura vegetal morta — restos de palha, folhas e
+          caules — deixada sobre o solo após a colheita ou plantada
+          especificamente para protegê-lo. Essa prática simples tem efeitos
+          profundos na saúde do solo e na produtividade da lavoura.
+        </p>
+
+        <!-- Grade de benefícios -->
+        <ul class="beneficios" role="list" aria-label="Benefícios da palhada">
+
+          <li class="beneficio js-revelar">
+            <span class="beneficio__icone" aria-hidden="true">💧</span>
+            <h3>Retenção de água</h3>
+            <p>
+              A cobertura reduz a evaporação da umidade do solo, diminuindo a
+              necessidade de irrigação em até 30% durante períodos de seca.
+            </p>
+          </li>
+
+          <li class="beneficio js-revelar">
+            <span class="beneficio__icone" aria-hidden="true">🌿</span>
+            <h3>Controle de ervas daninhas</h3>
+            <p>
+              A camada de palhada bloqueia a luz solar, impedindo a germinação
+              de plantas invasoras sem uso de herbicidas.
+            </p>
+          </li>
+
+          <li class="beneficio js-revelar">
+            <span class="beneficio__icone" aria-hidden="true">🌡️</span>
+            <h3>Temperatura estável</h3>
+            <p>
+              Isola o solo das variações de temperatura, protegendo raízes e
+              microrganismos que mantêm o solo fértil.
+            </p>
+          </li>
+
+          <li class="beneficio js-revelar">
+            <span class="beneficio__icone" aria-hidden="true">🐛</span>
+            <h3>Vida no solo</h3>
+            <p>
+              Alimenta minhocas, fungos e bactérias benéficas que decompõem
+              matéria orgânica e liberam nutrientes naturalmente.
+            </p>
+          </li>
+
+          <li class="beneficio js-revelar">
+            <span class="beneficio__icone" aria-hidden="true">🛡️</span>
+            <h3>Prevenção da erosão</h3>
+            <p>
+              Protege o solo da chuva e do vento, evitando que a camada fértil
+              superficial seja carregada para rios e lagos.
+            </p>
+          </li>
+
+          <li class="beneficio js-revelar">
+            <span class="beneficio__icone" aria-hidden="true">📈</span>
+            <h3>Mais produtividade</h3>
+            <p>
+              Com solo mais saudável, úmido e rico em nutrientes, as culturas
+              crescem melhor e com menos insumos externos.
+            </p>
+          </li>
+
+        </ul><!-- /benefícios -->
+
+        <!-- Comparativo sem palhada × com palhada -->
+        <div class="comparativo" role="region" aria-label="Comparativo: solo com e sem palhada">
+
+          <div class="comparativo__item comparativo__item--sem js-revelar">
+            <h4>
+              <span aria-hidden="true">✗</span>
+              <span>Sem palhada</span>
+            </h4>
+            <ul aria-label="Problemas sem palhada">
+              <li>Solo exposto ao sol e chuva</li>
+              <li>Erosão e perda de nutrientes</li>
+              <li>Maior consumo de água</li>
+              <li>Dependência de agrotóxicos</li>
+              <li>Solo compactado e menos fértil</li>
+            </ul>
+          </div>
+
+          <div class="comparativo__item comparativo__item--com js-revelar">
+            <h4>
+              <span aria-hidden="true">✓</span>
+              <span>Com palhada</span>
+            </h4>
+            <ul aria-label="Vantagens com palhada">
+              <li>Solo protegido e úmido</li>
+              <li>Nutrientes preservados e reciclados</li>
+              <li>Economia na irrigação</li>
+              <li>Menos dependência de químicos</li>
+              <li>Solo vivo e produtivo por mais tempo</li>
+            </ul>
+          </div>
+
+        </div><!-- /comparativo -->
+
+      </div>
+    </section><!-- /palhada -->
+
+
+    <!-- ─────────────────────────────────────────────
+         SEÇÃO 4 — RESÍDUOS
+         Descarte correto de resíduos no campo:
+         quatro tipos + alerta legal.
+    ───────────────────────────────────────────── -->
+    <section class="residuos" id="residuos" aria-labelledby="residuos-titulo">
+      <div class="container">
+
+        <p class="secao-rotulo">Responsabilidade ambiental</p>
+        <h2 class="secao-titulo" id="residuos-titulo">
+          Descarte correto de resíduos no campo
+        </h2>
+
+        <p class="residuos__intro">
+          A atividade agrícola gera diferentes tipos de resíduos. Descartá-los
+          incorretamente contamina o solo, as águas subterrâneas e coloca em
+          risco toda a cadeia produtiva.
+        </p>
+
+        <!-- Cards de resíduos -->
+        <ul class="lixeiras" role="list" aria-label="Tipos de resíduos e destinos corretos">
+
+          <li class="lixeira-card js-revelar" style="--cor-lixeira: #9e1b1b">
+            <span class="lixeira-card__icone" aria-hidden="true">🍾</span>
+            <h3>Garrafa</h3>
+            <p class="lixeira-card__destino">Lixeira <strong>Vermelha</strong></p>
+            <p>
+              Garrafas plásticas e de vidro são recicláveis. Devem ser limpas e
+              destinadas à coleta seletiva para reaproveitamento como matéria-prima.
+            </p>
+          </li>
+
+          <li class="lixeira-card js-revelar" style="--cor-lixeira: #8a6d00">
+            <span class="lixeira-card__icone" aria-hidden="true">🥫</span>
+            <h3>Lata</h3>
+            <p class="lixeira-card__destino">Lixeira <strong>Amarela</strong></p>
+            <p>
+              Latas de alumínio e aço são 100% recicláveis e têm alto valor no
+              mercado de reciclagem.
+            </p>
+          </li>
+
+          <li class="lixeira-card js-revelar" style="--cor-lixeira: #2e4a8a">
+            <span class="lixeira-card__icone" aria-hidden="true">🔋</span>
+            <h3>Pilha</h3>
+            <p class="lixeira-card__destino">Posto de coleta <strong>especial</strong></p>
+            <p>
+              Pilhas contêm metais pesados como mercúrio e cádmio. Jamais devem
+              ir no lixo comum — procure pontos de coleta específicos.
+            </p>
+          </li>
+
+          <li class="lixeira-card js-revelar" style="--cor-lixeira: #6a2d7a">
+            <span class="lixeira-card__icone" aria-hidden="true">🛢️</span>
+            <h3>Óleo</h3>
+            <p class="lixeira-card__destino">Posto de coleta <strong>especial</strong></p>
+            <p>
+              1 litro de óleo contamina até 1 milhão de litros de água. Nunca
+              descarte no solo ou esgoto.
+            </p>
+          </li>
+
+        </ul><!-- /lixeiras -->
+
+        <!-- Alerta legal -->
+        <aside class="alerta" role="note" aria-label="Alerta legal sobre descarte de resíduos">
+          <span class="alerta__icone" aria-hidden="true">⚠</span>
+          <p>
+            <strong>Importante:</strong> O descarte incorreto de resíduos no
+            campo é crime ambiental previsto na Lei 9.605/98 e pode resultar
+            em multas e responsabilização criminal.
+          </p>
+        </aside>
+
+      </div>
+    </section><!-- /residuos -->
+
+
+    <!-- ─────────────────────────────────────────────
+         SEÇÃO 5 — JOGO
+         Chamada para a experiência interativa e
+         o canvas do jogo (oculto até o clique).
+    ───────────────────────────────────────────── -->
+    <section class="cta-jogo" id="jogo" aria-labelledby="jogo-titulo">
+      <div class="container cta-jogo__inner">
+
+        <!-- Texto da chamada -->
+        <div class="cta-jogo__texto">
+          <p class="cta-jogo__selo" aria-label="Experiência interativa">
+            🎮 Experiência interativa
+          </p>
+
+          <h2 class="cta-jogo__titulo" id="jogo-titulo">
+            Aprenda na prática<br>com o Kadu
+          </h2>
+
+          <p class="cta-jogo__desc">
+            Coloque em prática tudo que você aprendeu! Ajude o jovem produtor
+            Kadu a cultivar milho com palhada, coletar e descartar resíduos
+            corretamente, e conquistar a Certificação Sustentável do Vale Verde.
+          </p>
+
+          <!-- Lista de fases (role="list" para leitores de voz) -->
+          <ul class="cta-jogo__fases" role="list" aria-label="Fases do jogo">
+            <li>🌱 Fase 1 — Cultivo com palhada</li>
+            <li>♻️ Fase 2 — Triagem de resíduos</li>
+            <li>🏆 Missão final — Descarte correto</li>
+          </ul>
+
+         <button class="btn-jogar" id="btnAbrirJogo" aria-expanded="false" aria-controls="jogoSection"
+  ontouchstart="isTouchDevice = true">
+  Jogar agora <span aria-hidden="true">→</span>
+</button>
+        </div><!-- /texto -->
+
+        <!-- Ilustração decorativa do campo -->
+        <div class="cta-jogo__ilustracao" aria-hidden="true">
+          <div class="campo">
+            <div class="campo__ceu"></div>
+            <div class="campo__sol">☀️</div>
+            <div class="campo__milho">🌽🌽🌽🌽🌽</div>
+            <div class="campo__chao"></div>
+            <div class="campo__kadu">🧑‍🌾</div>
+          </div>
+        </div>
+
+      </div>
+    </section><!-- /cta-jogo -->
+
+
+    <!-- ─────────────────────────────────────────────
+         JOGO — painel oculto até o clique no botão
+         Controlado por js-jogo-ativo (script.js)
+    ───────────────────────────────────────────── -->
+    <section class="jogo-painel" id="jogoSection" aria-label="Jogo Agrinho 2026" aria-hidden="true">
+
+      <div class="jogo-painel__cabecalho">
+        <h2>🎮 Agrinho 2026 — O Jogo</h2>
+        <button class="btn-fechar-jogo" id="btnFecharJogo" aria-label="Fechar o jogo e voltar ao site">
+          ✕ Fechar jogo
+        </button>
+      </div>
+
+      <div class="jogo-painel__canvas">
+        <!-- Canvas do jogo — controlado por script.js -->
+        <canvas id="gameCanvas" width="640" height="480" role="img"
+          aria-label="Área do jogo Agrinho. Use as teclas de direção para mover o personagem." tabindex="0"></canvas>
+      </div>
+
+      <p class="jogo-painel__controles" role="note">
+        <kbd>← →</kbd> ou <kbd>A D</kbd> para mover &nbsp;|&nbsp;
+        <kbd>↑</kbd> ou <kbd>Espaço</kbd> para pular &nbsp;|&nbsp;
+        <kbd>E</kbd> para interagir &nbsp;|&nbsp;
+        Clique para avançar diálogos
+      </p>
+
+    </section><!-- /jogo-painel -->
+
+  </main><!-- /conteúdo principal -->
+
+
+  <!-- ═══════════════════════════════════════════════════
+       RODAPÉ
+  ═══════════════════════════════════════════════════ -->
+  <footer class="rodape" role="contentinfo">
+    <div class="container">
+      <p>Agrinho 2026 · SENAR-PR · SEED-PR</p>
+      <p>Agro forte, futuro sustentável: equilíbrio entre produção e meio ambiente</p>
+    </div>
+  </footer>
+
+
+  <!-- ═══════════════════════════════════════════════════
+       SCRIPT DO JOGO (lógica de canvas)
+  ═══════════════════════════════════════════════════ -->
+  <script src="script.js"></script>
+
+  <!-- ═══════════════════════════════════════════════════
+       SCRIPT DA PÁGINA (interações do site, NÃO do jogo)
+       Separado do script.js para clareza de responsabilidade.
+  ═══════════════════════════════════════════════════ -->
+  <script>
+    /* ─── 1. MODO ESCURO ─────────────────────────────────────
+       Alterna o atributo data-tema no <html> entre "claro" e
+       "escuro". O CSS aplica as variáveis corretas com base
+       nesse atributo. A preferência é salva em localStorage.
+    ──────────────────────────────────────────────────────── */
+    const html = document.documentElement;
+    const btnTema = document.getElementById("btnTema");
+
+    // Restaura preferência salva (ou usa preferência do sistema)
+    const temaSalvo = localStorage.getItem("agrinho-tema");
+    const prefereEscuro = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    if (temaSalvo === "escuro" || (!temaSalvo && prefereEscuro)) {
+      html.setAttribute("data-tema", "escuro");
+      btnTema.setAttribute("aria-pressed", "true");
+      btnTema.setAttribute("aria-label", "Alternar modo claro");
+    }
+
+    btnTema.addEventListener("click", () => {
+      const atual = html.getAttribute("data-tema");
+      const proximo = atual === "escuro" ? "claro" : "escuro";
+      html.setAttribute("data-tema", proximo);
+      localStorage.setItem("agrinho-tema", proximo);
+      const pressionado = proximo === "escuro";
+      btnTema.setAttribute("aria-pressed", String(pressionado));
+      btnTema.setAttribute("aria-label", pressionado ? "Alternar modo claro" : "Alternar modo escuro");
+    });
+
+
+    /* ─── 2. LEITURA EM VOZ ALTA ─────────────────────────────
+       Usa a Web Speech API nativa do navegador para ler o
+       conteúdo de texto das seções principais em português.
+       O botão alterna entre "lendo" e "parado".
+    ──────────────────────────────────────────────────────── */
+    const btnVoz = document.getElementById("btnVoz");
+
+    if (!window.speechSynthesis) {
+      // Se o navegador não suportar, esconde o botão silenciosamente
+      btnVoz.hidden = true;
+    } else {
+      let lendo = false;
+
+      btnVoz.addEventListener("click", () => {
+        if (lendo) {
+          window.speechSynthesis.cancel();
+          lendo = false;
+          btnVoz.setAttribute("aria-pressed", "false");
+          btnVoz.setAttribute("aria-label", "Ativar leitura em voz alta");
+          return;
+        }
+
+        // Coleta o texto de todas as seções (exclui elementos aria-hidden)
+        const secoes = document.querySelectorAll("main section");
+        const textoCompleto = Array.from(secoes)
+          .map(s => s.innerText)
+          .join(". ");
+
+        const utterance = new SpeechSynthesisUtterance(textoCompleto);
+        utterance.lang = "pt-BR";
+        utterance.rate = 0.95;
+        utterance.pitch = 1;
+        utterance.onend = () => {
+          lendo = false;
+          btnVoz.setAttribute("aria-pressed", "false");
+          btnVoz.setAttribute("aria-label", "Ativar leitura em voz alta");
+        };
+
+        window.speechSynthesis.speak(utterance);
+        lendo = true;
+        btnVoz.setAttribute("aria-pressed", "true");
+        btnVoz.setAttribute("aria-label", "Parar leitura em voz alta");
+      });
+    }
+
+
+    /* ─── 3. NAVEGAÇÃO SUAVE ─────────────────────────────────
+       Intercepta cliques em âncoras internas (#secao) e
+       substitui o salto brusco por rolagem suave.
+    ──────────────────────────────────────────────────────── */
+    document.querySelectorAll('a[href^="#"]').forEach(ancora => {
+      ancora.addEventListener("click", evento => {
+        evento.preventDefault();
+        const alvo = document.querySelector(ancora.getAttribute("href"));
+        if (alvo) alvo.scrollIntoView({ behavior: "smooth" });
+      });
+    });
+
+
+    /* ─── 4. ANIMAÇÕES DE ENTRADA (Intersection Observer) ────
+       Adiciona a classe "visivel" a cada elemento marcado com
+       "js-revelar" quando ele entra na viewport. O CSS
+       controla a transição de opacidade e translação.
+    ──────────────────────────────────────────────────────── */
+    const observador = new IntersectionObserver(
+      entradas => {
+        entradas.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.classList.add("visivel");
+            observador.unobserve(e.target); // para de observar após revelar
+          }
+        });
+      },
+      { threshold: 0.12 }
+    );
+
+    document.querySelectorAll(".js-revelar").forEach(el => observador.observe(el));
+
+
+    /* ─── 5. ABRIR / FECHAR JOGO ─────────────────────────────
+       Controla a visibilidade do painel de jogo e inicia o
+       canvas apenas uma vez (flag _jogoIniciado).
+       O aria-hidden garante que leitores de voz ignorem o
+       canvas quando ele está fechado.
+    ──────────────────────────────────────────────────────── */
+    const painelJogo = document.getElementById("jogoSection");
+    const btnAbrirJogo = document.getElementById("btnAbrirJogo");
+    const btnFecharJogo = document.getElementById("btnFecharJogo");
+
+    btnAbrirJogo.addEventListener("click", () => {
+  painelJogo.classList.add("js-jogo-ativo");
+  painelJogo.setAttribute("aria-hidden", "false");
+  btnAbrirJogo.setAttribute("aria-expanded", "true");
+  painelJogo.scrollIntoView({ behavior: "smooth" });
+
+  // ← Detecta touch aqui, antes do preload
+  if (navigator.maxTouchPoints > 0 || 'ontouchstart' in window) {
+    isTouchDevice = true;
+  }
+
+  if (!window._jogoIniciado) {
+    window._jogoIniciado = true;
+    preload();
+  }
+});
+    btnFecharJogo.addEventListener("click", () => {
+      painelJogo.classList.remove("js-jogo-ativo");
+      painelJogo.setAttribute("aria-hidden", "true");
+      btnAbrirJogo.setAttribute("aria-expanded", "false");
+      document.getElementById("jogo").scrollIntoView({ behavior: "smooth" });
+    });
+
+
+    /* ─── 6. BLOQUEAR SCROLL DO SITE DURANTE O JOGO ─────────
+       Impede que setas e espaço rolar a página enquanto o
+       canvas do jogo está ativo e focado.
+    ──────────────────────────────────────────────────────── */
+    const TECLAS_JOGO = [" ", "ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"];
+
+    document.addEventListener("keydown", evento => {
+      const jogoAberto = painelJogo.classList.contains("js-jogo-ativo");
+      if (jogoAberto && TECLAS_JOGO.includes(evento.key)) {
+        evento.preventDefault();
+      }
+    }, { passive: false });
+
+  </script>
+
+</body>
+
+</html>

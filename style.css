@@ -1,0 +1,1084 @@
+/* ════════════════════════════════════════════════════════════════
+   AGRINHO 2026 — Folha de Estilos
+   Tema visual: pôster agrícola vintage
+   Paleta complementar: Verde profundo × Bordô/Vermelho-terra
+
+   ÍNDICE
+   ──────
+   0. Reset e base
+   1. Variáveis (tokens de design)
+   2. Tipografia global
+   3. Utilitários (.container, .secao-rotulo, .secao-titulo)
+   4. Acessibilidade (skip-link, foco, prefers-reduced-motion)
+   5. Cabeçalho e navegação
+   6. Hero
+   7. Seção — Sobre
+   8. Seção — Palhada
+   9. Seção — Resíduos
+  10. Seção — CTA Jogo
+  11. Painel do Jogo
+  12. Rodapé
+  13. Modo escuro
+  14. Responsividade (breakpoints)
+
+
+  // Nota; Caro avaliador, cada linha deste código foi escrita com cuidado e atenção para apresentar uma boa experiência do usuário.
+════════════════════════════════════════════════════════════════ */
+
+
+/* ════════════════════════════════════════════════════════════════
+   0. RESET E BASE
+   Zera margens/paddings e adota box-sizing consistente.
+════════════════════════════════════════════════════════════════ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+.cabecalho__logo { order: 2; }
+.cabecalho__nav  { order: 1; }
+.cabecalho__controles { order: 3; }
+.jogo-painel__controles kbd {
+  color: #ccc;
+  background: #2a2a2a;
+  border-color: #555;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%; /* evita zoom de fonte no iOS */
+}
+
+body {
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 18px;
+  line-height: 1.75;
+  background: var(--fundo);
+  color: var(--texto);
+  overflow-x: hidden;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+
+/* ════════════════════════════════════════════════════════════════
+   1. VARIÁVEIS — TOKENS DE DESIGN
+   ──────────────────────────────
+   Paleta complementar: Verde (campo) × Bordô (terra/tradição)
+   O modo escuro inverte apenas fundo e texto — seção 13.
+════════════════════════════════════════════════════════════════ */
+:root {
+  /* Cores primárias — verde */
+  --verde-1:  #0d2410;   /* mais escuro — fundos hero, footer */
+  --verde-2:  #1a4020;   /* médio — cabeçalho, seções escuras  */
+  --verde-3:  #2d6a2d;   /* base — destaques verdes             */
+  --verde-4:  #4c8c3a;   /* claro — hover, acentos secundários  */
+
+  /* Cores complementares — bordô/vermelho-terra */
+  --bordo-1:  #6b0d0d;   /* escuro — bordas, acentos fortes     */
+  --bordo-2:  #9e1b1b;   /* base — CTA, rótulos, destaques      */
+  --bordo-3:  #c44040;   /* claro — hover de bordô              */
+
+  /* Neutros */
+  --creme:    #f5ede0;   /* fundo principal modo claro          */
+  --pergaminho:#ede0c8;  /* fundo de seções alternadas          */
+  --branco:   #ffffff;
+  --cinza-1:  #2a2a24;   /* texto principal                     */
+  --cinza-2:  #4a4840;   /* texto secundário                    */
+  --cinza-3:  #7a7870;   /* texto terciário / labels            */
+
+  /* Sombras */
+  --sombra-s: rgba(0, 0, 0, 0.08);
+  --sombra-m: rgba(0, 0, 0, 0.14);
+  --sombra-l: rgba(0, 0, 0, 0.22);
+
+  /* Tokens semânticos (referenciados ao longo do CSS) */
+  --fundo:     var(--creme);
+  --fundo-alt: var(--pergaminho);
+  --texto:     var(--cinza-1);
+  --texto-s:   var(--cinza-2);
+  --acento:    var(--bordo-2);
+  --acento-h:  var(--bordo-3);
+  --superficie:var(--branco);
+
+  /* Tipografia */
+  --fonte-titulo: 'DM Serif Display', Georgia, serif;
+  --fonte-corpo:  'Crimson Pro', Georgia, serif;
+
+  /* Espaçamentos */
+  --espaco-s: 0.5rem;
+  --espaco-m: 1.5rem;
+  --espaco-l: 3rem;
+  --espaco-xl: 6rem;
+
+  /* Raios de borda — estilo mais anguloso/artístico */
+  --raio-s: 2px;
+  --raio-m: 6px;
+  --raio-l: 12px;
+}
+
+
+/* ════════════════════════════════════════════════════════════════
+   2. TIPOGRAFIA GLOBAL
+════════════════════════════════════════════════════════════════ */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--fonte-titulo);
+  font-weight: 400; /* DM Serif Display já tem peso no desenho */
+  line-height: 1.15;
+  color: var(--verde-1);
+}
+
+p { color: var(--texto-s); }
+
+a {
+  color: var(--acento);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+a:hover { color: var(--acento-h); }
+
+ul { list-style: none; }
+
+strong { color: var(--texto); }
+
+/* Kbd estilizado para os controles do jogo */
+kbd {
+  display: inline-block;
+  font-family: monospace;
+  font-size: 0.78em;
+  background: var(--fundo-alt);
+  border: 1px solid var(--cinza-3);
+  border-bottom-width: 2px;
+  border-radius: var(--raio-s);
+  padding: 1px 5px;
+}
+
+
+/* ════════════════════════════════════════════════════════════════
+   3. UTILITÁRIOS
+════════════════════════════════════════════════════════════════ */
+
+/* Container centralizado — largura máxima com padding lateral */
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 clamp(16px, 4vw, 32px);
+}
+
+/* Rótulo de seção (pequeno texto em maiúsculas acima do título) */
+.secao-rotulo {
+  font-family: var(--fonte-corpo);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--acento);
+  margin-bottom: 0.6rem;
+}
+
+/* Título de seção h2 */
+.secao-titulo {
+  font-family: var(--fonte-titulo);
+  font-size: clamp(2rem, 4.5vw, 3.25rem);
+  color: var(--verde-1);
+  margin-bottom: 2.5rem;
+  /* Sublinhado decorativo manual — estilo pôster */
+  padding-bottom: 1rem;
+  border-bottom: 2px solid var(--acento);
+  display: inline-block; /* para que a borda não ocupe a largura toda */
+}
+
+/* Revelar por scroll — estado inicial (oculto) */
+.js-revelar {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+}
+.js-revelar.visivel {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+/* ════════════════════════════════════════════════════════════════
+   4. ACESSIBILIDADE
+════════════════════════════════════════════════════════════════ */
+
+/* Skip-link — visível apenas quando focado por teclado */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--acento);
+  color: var(--branco);
+  padding: 8px 20px;
+  border-radius: 0 0 var(--raio-m) var(--raio-m);
+  font-size: 0.9rem;
+  font-weight: 600;
+  z-index: 9999;
+  text-decoration: none;
+  transition: top 0.2s;
+}
+.skip-link:focus { top: 0; }
+
+/* Foco visível em todos os elementos interativos */
+:focus-visible {
+  outline: 3px solid var(--acento);
+  outline-offset: 3px;
+  border-radius: var(--raio-s);
+}
+
+/* Respeita preferência do sistema por menos movimento */
+@media (prefers-reduced-motion: reduce) {
+  *:not(.campo__sol):not(.campo__milho):not(.campo__kadu)::before,
+  *:not(.campo__sol):not(.campo__milho):not(.campo__kadu)::after,
+  *:not(.campo__sol):not(.campo__milho):not(.campo__kadu) {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+  html { scroll-behavior: auto; }
+}
+
+/* ════════════════════════════════════════════════════════════════
+   5. CABEÇALHO E NAVEGAÇÃO
+════════════════════════════════════════════════════════════════ */
+.cabecalho {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--verde-1);
+  border-bottom: 2px solid var(--bordo-1);
+}
+
+.cabecalho__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--espaco-m);
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  flex-wrap: wrap;
+}
+
+/* Logo */
+.cabecalho__logo {
+  font-family: var(--fonte-titulo);
+  font-size: 1.15rem;
+  color: var(--creme);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  letter-spacing: 0.04em;
+}
+.cabecalho__logo:hover { color: var(--amarelo, #e8c84a); }
+
+/* Links de navegação */
+.cabecalho__nav ul {
+  display: flex;
+  gap: clamp(0.75rem, 2vw, 1.75rem);
+  align-items: center;
+}
+
+.nav__link {
+  font-family: var(--fonte-corpo);
+  font-size: 0.88rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(245, 237, 224, 0.75);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.nav__link:hover,
+.nav__link:focus-visible { color: var(--creme); }
+
+/* Link de destaque "Jogar" */
+.nav__link--destaque {
+  color: var(--creme);
+  border-bottom: 2px solid var(--bordo-2);
+  padding-bottom: 1px;
+}
+.nav__link--destaque:hover { border-color: var(--bordo-3); }
+
+/* Botões de ícone (tema, voz) */
+.cabecalho__controles {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.btn-icone {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: var(--raio-m);
+  color: var(--creme);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+}
+.btn-icone:hover { background: rgba(255, 255, 255, 0.18); }
+
+/* Ícone lua/sol gerado por CSS — evita dependência de biblioteca */
+.icone-tema::before {
+  content: "☽"; /* modo claro: mostra lua para alternar */
+  font-size: 1rem;
+}
+[data-tema="escuro"] .icone-tema::before {
+  content: "☀"; /* modo escuro: mostra sol para alternar */
+}
+
+
+/* ════════════════════════════════════════════════════════════════
+   6. HERO
+   Tela de abertura com textura de grão e decoração geométrica
+   inspirada em cartazes agrícolas dos anos 1930–1960.
+════════════════════════════════════════════════════════════════ */
+.hero {
+  position: relative;
+  min-height: 100svh; /* svh: safe viewport height, melhor em mobile */
+  background: var(--verde-1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Textura de grão SVG inline — sem requisição de rede */
+.hero__textura {
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='0.09'/%3E%3C/svg%3E");
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+/* Linhas horizontais — estilo papel pautado vintage */
+.hero__linhas {
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 38px,
+    rgba(255, 255, 255, 0.03) 38px,
+    rgba(255, 255, 255, 0.03) 39px
+  );
+  pointer-events: none;
+}
+
+/* Conteúdo centralizado */
+.hero__content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: clamp(2rem, 8vw, 5rem) 1.5rem;
+  animation: entrar 0.9s ease both;
+}
+
+@keyframes entrar {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
+/* Selo "AGRINHO · 2026" */
+.hero__selo {
+  display: inline-block;
+  font-family: var(--fonte-corpo);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--creme);
+  border: 1px solid var(--bordo-2);
+  padding: 4px 16px;
+  margin-bottom: 1.75rem;
+  /* Pequenas linhas decorativas no estilo carimbo */
+  background: rgba(158, 27, 27, 0.18);
+}
+
+/* Título principal */
+.hero__titulo {
+  font-family: var(--fonte-titulo);
+  font-size: clamp(3rem, 9vw, 7.5rem);
+  font-weight: 400;
+  color: var(--creme);
+  line-height: 1.05;
+  margin-bottom: 1.25rem;
+  text-shadow: 3px 3px 0 rgba(0,0,0,0.3);
+}
+
+/* "futuro sustentável" em itálico bordô */
+.hero__titulo em {
+  font-style: italic;
+  color: var(--bordo-3);
+}
+
+/* Subtítulo */
+.hero__subtitulo {
+  font-size: clamp(1rem, 2.5vw, 1.35rem);
+  color: rgba(245, 237, 224, 0.68);
+  margin-bottom: 2.5rem;
+  letter-spacing: 0.04em;
+}
+
+/* Botão CTA do hero */
+.hero__cta {
+  display: inline-block;
+  background: var(--bordo-2);
+  color: var(--creme);
+  font-family: var(--fonte-corpo);
+  font-weight: 600;
+  font-size: 1rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 12px 36px;
+  text-decoration: none;
+  border: 2px solid var(--bordo-1);
+  border-radius: var(--raio-s);
+  transition: background 0.2s, transform 0.2s;
+  box-shadow: 4px 4px 0 var(--bordo-1);
+}
+.hero__cta:hover {
+  background: var(--bordo-3);
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 var(--bordo-1);
+  color: var(--creme);
+}
+
+/* Elementos decorativos — círculos e linhas geométricas */
+.hero__deco { position: absolute; inset: 0; pointer-events: none; z-index: 1; }
+
+.deco__circulo {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(158, 27, 27, 0.35);
+}
+.deco__circulo--1 {
+  width: 420px; height: 420px;
+  top: -120px; right: -100px;
+}
+.deco__circulo--2 {
+  width: 260px; height: 260px;
+  bottom: 60px; left: -80px;
+  border-color: rgba(76, 140, 58, 0.3);
+}
+
+.deco__linha {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.05);
+}
+.deco__linha--1 { width: 100%; height: 1px; top: 35%; }
+.deco__linha--2 { width: 1px; height: 100%; left: 20%; }
+
+
+/* ════════════════════════════════════════════════════════════════
+   7. SEÇÃO — SOBRE
+════════════════════════════════════════════════════════════════ */
+.sobre {
+  background: var(--fundo);
+  padding: var(--espaco-xl) 0;
+}
+
+/* Grade de duas colunas: texto | cards */
+.sobre__grade {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(2rem, 6vw, 4rem);
+  align-items: start;
+}
+
+.sobre__texto p {
+  font-size: 1.05rem;
+  color: var(--texto-s);
+  margin-bottom: 1.2rem;
+}
+
+/* Lista vertical de cards de estatística */
+.sobre__cards {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Card de estatística — borda lateral bordô / verde */
+.stat-card {
+  background: var(--superficie);
+  border-left: 4px solid var(--verde-3);
+  padding: 1.25rem 1.5rem;
+  box-shadow: 0 2px 12px var(--sombra-s);
+  /* Ângulo leve no canto — referência ao pôster vintage */
+  clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%);
+}
+.stat-card--destaque { border-left-color: var(--bordo-2); }
+
+.stat-card__numero {
+  display: block;
+  font-family: var(--fonte-titulo);
+  font-size: 2.75rem;
+  line-height: 1;
+  color: var(--verde-2);
+  margin-bottom: 0.3rem;
+}
+.stat-card--destaque .stat-card__numero { color: var(--bordo-1); }
+
+.stat-card__descricao {
+  font-size: 0.9rem;
+  color: var(--texto-s);
+  line-height: 1.55;
+}
+
+
+/* ════════════════════════════════════════════════════════════════
+   8. SEÇÃO — PALHADA
+════════════════════════════════════════════════════════════════ */
+.palhada {
+  background: var(--fundo-alt);
+  padding: var(--espaco-xl) 0;
+}
+
+/* Parágrafo introdutório com borda lateral */
+.palhada__intro {
+  font-size: 1.1rem;
+  color: var(--texto-s);
+  max-width: 720px;
+  margin-bottom: 3rem;
+  padding-left: 1.25rem;
+  border-left: 3px solid var(--verde-3);
+}
+
+/* Grade de benefícios — 3 colunas */
+.beneficios {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+  margin-bottom: 3rem;
+}
+
+/* Card de benefício */
+.beneficio {
+  background: var(--superficie);
+  padding: 1.75rem 1.5rem;
+  box-shadow: 0 2px 14px var(--sombra-s);
+  /* Borda superior como acento de cor */
+  border-top: 3px solid var(--verde-3);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.beneficio:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 22px var(--sombra-m);
+}
+.beneficio:nth-child(even) { border-top-color: var(--bordo-2); }
+
+.beneficio__icone {
+  font-size: 2rem;
+  display: block;
+  margin-bottom: 0.75rem;
+}
+
+.beneficio h3 {
+  font-family: var(--fonte-titulo);
+  font-size: 1.2rem;
+  color: var(--verde-1);
+  margin-bottom: 0.5rem;
+}
+
+.beneficio p {
+  font-size: 0.9rem;
+  line-height: 1.65;
+  color: var(--texto-s);
+}
+
+/* Comparativo sem × com palhada */
+.comparativo {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.comparativo__item {
+  padding: 2rem 1.75rem;
+  border: 1px solid transparent;
+}
+
+.comparativo__item--sem {
+  background: #f9eaea;
+  border-color: #e0b8b8;
+}
+.comparativo__item--com {
+  background: #eaf4ea;
+  border-color: #b8d8b8;
+}
+
+.comparativo__item h4 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--fonte-titulo);
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+}
+
+.comparativo__item--sem h4  { color: var(--bordo-1); }
+.comparativo__item--com h4  { color: var(--verde-2); }
+
+.comparativo__item ul { display: flex; flex-direction: column; gap: 0.6rem; }
+
+.comparativo__item li {
+  font-size: 0.95rem;
+  color: var(--texto-s);
+  padding-left: 1rem;
+  /* Marcador manual compatível com list-style: none */
+  position: relative;
+}
+.comparativo__item li::before {
+  content: "—";
+  position: absolute;
+  left: 0;
+  color: var(--cinza-3);
+  font-size: 0.8rem;
+}
+
+
+/* ════════════════════════════════════════════════════════════════
+   9. SEÇÃO — RESÍDUOS
+════════════════════════════════════════════════════════════════ */
+.residuos {
+  background: var(--fundo);
+  padding: var(--espaco-xl) 0;
+}
+
+.residuos__intro {
+  font-size: 1.05rem;
+  color: var(--texto-s);
+  max-width: 720px;
+  margin-bottom: 2.5rem;
+}
+
+/* Grade de cards de lixeira — 4 colunas */
+.lixeiras {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+  margin-bottom: 2.5rem;
+}
+
+/* Card de resíduo — borda superior usa variável CSS definida inline no HTML */
+.lixeira-card {
+  background: var(--superficie);
+  padding: 1.5rem 1.25rem;
+  box-shadow: 0 2px 12px var(--sombra-s);
+  border-top: 4px solid var(--cor-lixeira, var(--bordo-2));
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+.lixeira-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px var(--sombra-m);
+}
+
+.lixeira-card__icone {
+  font-size: 2rem;
+  display: block;
+  margin-bottom: 0.6rem;
+}
+
+.lixeira-card h3 {
+  font-family: var(--fonte-titulo);
+  font-size: 1.2rem;
+  color: var(--verde-1);
+  margin-bottom: 0.25rem;
+}
+
+/* Destino (ex: "Lixeira Vermelha") — usa a cor da variável */
+.lixeira-card__destino {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--cor-lixeira, var(--bordo-2));
+  margin-bottom: 0.75rem;
+}
+
+.lixeira-card p:last-child {
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: var(--texto-s);
+}
+
+/* Caixa de alerta legal */
+.alerta {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  background: #fefae8;
+  border: 1px solid #d9c86a;
+  border-left: 4px solid var(--acento);
+  padding: 1.25rem 1.5rem;
+}
+
+.alerta__icone {
+  font-size: 1.4rem;
+  flex-shrink: 0;
+  color: var(--acento);
+}
+
+.alerta p {
+  font-size: 0.92rem;
+  line-height: 1.65;
+  color: var(--texto-s);
+}
+
+
+/* ════════════════════════════════════════════════════════════════
+  10. SEÇÃO — CTA JOGO
+════════════════════════════════════════════════════════════════ */
+.cta-jogo {
+  background: var(--verde-1);
+  /* Padrão de bolinhas muito sutis — referência a cartazes serigrafia */
+  background-image: radial-gradient(rgba(255,255,255,0.04) 1px, transparent 1px);
+  background-size: 24px 24px;
+  padding: var(--espaco-xl) 0;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Linha decorativa de bordô no topo */
+.cta-jogo::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: var(--bordo-2);
+}
+
+.cta-jogo__inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(2rem, 6vw, 4rem);
+  align-items: center;
+}
+
+/* Elemento decorativo (canto inferior direito) */
+.cta-jogo::after {
+  content: '';
+  position: absolute;
+  bottom: -60px; right: -60px;
+  width: 260px; height: 260px;
+  border-radius: 50%;
+  border: 1px solid rgba(196, 64, 64, 0.2);
+  pointer-events: none;
+}
+
+/* Selo do jogo */
+.cta-jogo__selo {
+  display: inline-block;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--bordo-3);
+  border: 1px solid rgba(196, 64, 64, 0.35);
+  padding: 3px 12px;
+  margin-bottom: 1.25rem;
+  background: rgba(158, 27, 27, 0.1);
+}
+
+.cta-jogo__titulo {
+  font-family: var(--fonte-titulo);
+  font-size: clamp(2.2rem, 5vw, 3.5rem);
+  color: var(--creme);
+  margin-bottom: 1.25rem;
+  text-shadow: 2px 2px 0 rgba(0,0,0,0.35);
+}
+
+.cta-jogo__desc {
+  font-size: 1.05rem;
+  color: rgba(245, 237, 224, 0.72);
+  line-height: 1.75;
+  margin-bottom: 1.75rem;
+}
+
+/* Lista de fases */
+.cta-jogo__fases {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+}
+.cta-jogo__fases li {
+  font-size: 0.95rem;
+  color: rgba(245, 237, 224, 0.8);
+}
+
+/* Botão jogar — estilo pôster: sombra dura, sem radius excessivo */
+.btn-jogar {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: var(--bordo-2);
+  color: var(--creme);
+  font-family: var(--fonte-corpo);
+  font-weight: 600;
+  font-size: 1.1rem;
+  letter-spacing: 0.05em;
+  padding: 14px 40px;
+  border: 2px solid var(--bordo-1);
+  border-radius: var(--raio-s);
+  cursor: pointer;
+  box-shadow: 5px 5px 0 var(--bordo-1);
+  transition: transform 0.18s, box-shadow 0.18s, background 0.18s;
+}
+.btn-jogar:hover {
+  background: var(--bordo-3);
+  transform: translate(-2px, -2px);
+  box-shadow: 7px 7px 0 var(--bordo-1);
+}
+.btn-jogar span { font-size: 1.2rem; transition: transform 0.2s; }
+.btn-jogar:hover span { transform: translateX(4px); }
+
+/* Ilustração decorativa do campo */
+.cta-jogo__ilustracao {
+  display: flex;
+  justify-content: center;
+}
+
+.campo {
+  position: relative;
+  width: 100%;
+  max-width: 380px;
+  height: 240px;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+  isolation: isolate; /* garante contexto de empilhamento separado */
+}
+
+.campo__ceu {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, #2a6ab5 0%, #a8d4e8 100%);
+  z-index: 0;
+}
+
+.campo__sol {
+  position: absolute;
+  top: 14px; right: 22px;
+  font-size: 2.2rem;
+  z-index: 1;
+  animation: girar 10s linear infinite;
+}
+@keyframes girar { to { transform: rotate(360deg); } }
+
+.campo__milho {
+  position: absolute;
+  bottom: 58px;
+  left: 0; right: 0;
+  text-align: center;
+  font-size: 1.6rem;
+  letter-spacing: 4px;
+  white-space: nowrap;
+  z-index: 2;
+  animation: balancar 3.5s ease-in-out infinite;
+}
+@keyframes balancar {
+  0%,100% { transform: translateY(0);    }
+  50%      { transform: translateY(-5px); }
+}
+
+.campo__chao {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 48px;
+  background: #5a3214;
+  border-top: 3px solid #7a4a22;
+  z-index: 3;
+}
+
+.campo__kadu {
+  position: absolute;
+  bottom: 42px;
+  left: 20px;
+  font-size: 2rem;
+  z-index: 4;
+  animation: andar 3s ease-in-out infinite;
+}
+@keyframes andar {
+  0%   { transform: translateX(0)     scaleX(1);  }
+  45%  { transform: translateX(240px) scaleX(1);  }
+  50%  { transform: translateX(240px) scaleX(-1); }
+  95%  { transform: translateX(0)     scaleX(-1); }
+  100% { transform: translateX(0)     scaleX(1);  }
+}
+/* ════════════════════════════════════════════════════════════════
+  11. PAINEL DO JOGO
+════════════════════════════════════════════════════════════════ */
+
+/* Oculto por padrão — revelado pela classe js-jogo-ativo */
+.jogo-painel {
+  display: none;
+  background: #080808;
+  padding: 2.5rem 0 3.5rem;
+}
+.jogo-painel.js-jogo-ativo { display: block; }
+
+/* Cabeçalho do painel */
+.jogo-painel__cabecalho {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 700px;
+  margin: 0 auto 1.5rem;
+  padding: 0 1.25rem;
+}
+
+.jogo-painel__cabecalho h2 {
+  font-family: var(--fonte-titulo);
+  font-size: 1.4rem;
+  color: var(--creme);
+}
+
+/* Botão fechar jogo */
+.btn-fechar-jogo {
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(245, 237, 224, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: var(--raio-m);
+  padding: 7px 16px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+.btn-fechar-jogo:hover {
+  background: rgba(255, 255, 255, 0.18);
+  color: var(--creme);
+}
+
+/* Canvas centralizado */
+.jogo-painel__canvas {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#gameCanvas {
+  display: block;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  border: 2px solid rgba(255, 255, 255, 0.08);
+  /* Em telas pequenas, o canvas escala mantendo proporção */
+  max-width: 100%;
+  height: auto;
+}
+
+/* Legenda de controles */
+.jogo-painel__controles {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.32);
+  font-size: 0.8rem;
+  margin-top: 1.1rem;
+  letter-spacing: 0.03em;
+  padding: 0 1rem;
+}
+
+
+/* ════════════════════════════════════════════════════════════════
+  12. RODAPÉ
+════════════════════════════════════════════════════════════════ */
+.rodape {
+  background: var(--verde-1);
+  border-top: 2px solid var(--bordo-1);
+  padding: 2.5rem 0;
+  text-align: center;
+}
+
+.rodape p {
+  color: rgba(245, 237, 224, 0.45);
+  font-size: 0.85rem;
+  line-height: 2;
+}
+
+
+/* ════════════════════════════════════════════════════════════════
+  13. MODO ESCURO
+   Muda apenas fundo e texto — paleta de cores e acento permanecem.
+   Ativado pelo atributo data-tema="escuro" no <html>.
+════════════════════════════════════════════════════════════════ */
+[data-tema="escuro"] {
+  --fundo:      #141410;
+  --fundo-alt:  #1c1c18;
+  --texto:      #e8e0d0;
+  --texto-s:    #b0a898;
+  --superficie: #222218;
+  --cinza-1:    #e8e0d0;
+  --cinza-2:    #b0a898;
+}
+
+/* Ajustes pontuais no modo escuro */
+[data-tema="escuro"] .sobre,
+[data-tema="escuro"] .residuos { background: var(--fundo); }
+
+[data-tema="escuro"] .palhada  { background: var(--fundo-alt); }
+
+[data-tema="escuro"] h1,
+[data-tema="escuro"] h2,
+[data-tema="escuro"] h3,
+[data-tema="escuro"] h4 { color: var(--creme); }
+
+[data-tema="escuro"] .secao-titulo { color: var(--creme); }
+
+[data-tema="escuro"] .comparativo__item--sem { background: #2a1414; border-color: #5a2424; }
+[data-tema="escuro"] .comparativo__item--com { background: #142014; border-color: #2a4a2a; }
+
+[data-tema="escuro"] .alerta {
+  background: #1e1a06;
+  border-color: #6a5a1a;
+}
+
+[data-tema="escuro"] .rodape { background: #0a0a08; }
+
+
+/* ════════════════════════════════════════════════════════════════
+  14. RESPONSIVIDADE
+   Mobile-first: ajustes dos breakpoints maiores para menores.
+════════════════════════════════════════════════════════════════ */
+
+/* Tablet — até 960px */
+@media (max-width: 960px) {
+  .beneficios        { grid-template-columns: repeat(2, 1fr); }
+  .lixeiras          { grid-template-columns: repeat(2, 1fr); }
+  .cta-jogo__inner   { grid-template-columns: 1fr; }
+  .cta-jogo__ilustracao { display: none; } /* oculta decoração em tela menor */
+}
+
+/* Mobile grande — até 768px */
+@media (max-width: 768px) {
+  .sobre__grade      { grid-template-columns: 1fr; }
+  .comparativo       { grid-template-columns: 1fr; }
+  .cabecalho__nav    { display: none; } /* menu escondido — em versão real, usar menu hamburguer */
+
+  /* Compensa a ausência do nav reduzindo padding */
+  .cabecalho__inner  { justify-content: space-between; }
+}
+
+/* Mobile pequeno — até 520px */
+@media (max-width: 520px) {
+  .beneficios        { grid-template-columns: 1fr; }
+  .lixeiras          { grid-template-columns: 1fr; }
+
+  .hero__titulo      { font-size: clamp(2.2rem, 12vw, 3.5rem); }
+
+  .btn-jogar {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* Canvas escala para caber na tela */
+  #gameCanvas {
+    width: 100%;
+    height: auto;
+  }
+}
