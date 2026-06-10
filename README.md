@@ -1,10 +1,10 @@
 # Agricultura-Sustentavel-Agrinho-2026
 
-Projeto desenvolvido para o concurso Agrinho programação 2026 na categoria 03; Front End. 
+Projeto desenvolvido para o concurso Agrinho programação 2026 na categoria 03: Front End. 
 
 ## Sobre o projeto
 
-é uma plataforma educativa voltada para o campo da agricultura sustentável. O objetivo principal é mostrar como a produtividade agrícola e a preservação ambiental andam juntas. Através de dados estatísticos de impacto, guias visuais e uma experiência gamificada, o usuário aprende a cuidar do amanhã a partir das ações de hoje.
+É um jogo educativo voltado para o campo da agricultura sustentável. O objetivo principal é mostrar como a produtividade agrícola e a preservação ambiental andam juntas. Através de dados estatísticos de impacto, guias visuais e uma experiência gamificada, o usuário aprende a cuidar do amanhã a partir das ações de hoje.
 
 ## 🧩 Funcionalidades e Seções
 
